@@ -196,6 +196,12 @@ class Socket(object):
     def _set_recv_buffer_size(self, value):
         return self.set_int_option(SOL_SOCKET, RCVBUF, value)
 
+    def _get_recv_max_size(self):
+        return self.get_int_option(SOL_SOCKET, RCVMAXSIZE)
+
+    def _set_recv_max_size(self, value):
+        return self.set_int_option(SOL_SOCKET, RCVMAXSIZE, value)
+
     def _get_send_timeout(self):
         return self.get_int_option(SOL_SOCKET, SNDTIMEO)
 
@@ -226,6 +232,8 @@ class Socket(object):
                        'milliseconds (0.001 seconds)')
     recv_buffer_size = property(_get_recv_buffer_size, _set_recv_buffer_size,
                                 doc='Receive buffer size in bytes')
+    recv_max_size = property(_get_recv_max_size, _set_recv_max_size,
+                                doc='Maximum message size that can be received in bytes')
     send_buffer_size = property(_get_send_buffer_size, _set_send_timeout,
                                 doc='Send buffer size in bytes')
     send_timeout = property(_get_send_timeout, _set_send_timeout,
